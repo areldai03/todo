@@ -5,14 +5,16 @@ from datetime import timedelta
 from datetime import datetime
 import bcrypt
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 db.init_app(app)
 bootstrap = Bootstrap(app)
 app.secret_key = os.environ.get('SECRET_KEY')
-app.permanent_session_lifetime = timedelta(minutes=10)
+app.permanent_session_lifetime = timedelta(minutes=5)
 
 
 @app.route('/', methods=['GET', 'POST'])
