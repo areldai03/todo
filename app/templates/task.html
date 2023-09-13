@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+    <title>MyToDo</title>
+</head>
+
+<style>
+        body{
+        background-color: #d7edf7
+        }
+        input[name="basic-addon2"]{
+        width: 16px;
+        }
+
+
+</style>
+
+<body>
+
+<nav class="navbar navbar-expand navbar-dark bg-primary fixed-top　mb-3">
+    <a class="navbar-brand" href="/home">My ToDo</a>
+    <div class="navbar-nav mr-auto">
+        <a class="nav-link" href="/home">Home</a>
+        <a class="nav-link" href="#">Calender</a>
+    </div>
+    <div class="navbar-nav mr-auto">
+        <form class="form-inline" action="/addTask" method="POST">
+            <input aria-label="add task" class="form-control" name="task" placeholder="タスク追加" type="text" maxlength="20" required>
+            <input class="ml-1" type="date" name="deadline" required>
+            <button class="btn btn-outline-light ml-3" type="submit">追加</button>
+        </form>
+    </div>
+    <div class="navbar-nav">
+        <span class="text-light">ようこそ&nbsp;{{user.userName}}さん</span>
+    <a class="btn btn-outline-danger ml-2" href="/logout">log out</a>
+    </div>
+
+</nav>
+
+<!--タスク一覧-->
+<div class="mt-5 d-flex justify-content-center">
+    <ol class="list-group list-group-numbered w-50">
+        <li class="list-group-item list-group-item-primary">タスク一覧</li>
+        {% for task in tasks %}
+        <li class="list-group-item border-top">
+            <div class="ms-2">
+                <div class="fw-bold d-flex mb-1">
+                    <div class="mr-auto p-2">タスク : {{ task.title }}</div>
+                    <button type="button" class="btn btn-outline-success" data-toggle="modal"
+                            data-target="#exampleModal"
+                            data-whatever={{task.title}},{{task.id}}>
+                        完了
+                    </button>
+                </div>
+                <div class="fw-bold d-flex">
+                    <div class="mr-auto p-2">期限 ： {{ task.limit.strftime('%Y-%m-%d') }}</div>
+                    <button class="btn btn-outline-info" data-toggle="modal" data-target="#editTaskModal"
+                            data-whatever={{task.title}},{{task.id}},{{task.limit}}>編集
+                    </button>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ol>
+</div>
+
+
+<!-- Modal -->
+<!--完了確認フォーム-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">完了確認フォーム</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">×</button>
+            </div>
+            <div class="modal-body">
+
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="doneTask" readonly>
+                    このタスクを完了しますか？
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <form action="/doneTask" method="POST">
+                    <input type="hidden" class="form-control" name="doneTaskId">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">完了</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--編集フォームmodal-->
+<div class="modal fade" id="editTaskModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">編集フォーム</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form action="/editTask" method="POST">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="task-name" class="col-form-label">タスク:</label>
+                        <input type="text" class="form-control" id="task-name" name="editTaskTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="task-limit" class="col-form-label">期限:</label>
+                        <input class="form-control" id="task-limit" type="date" name="editTaskLimit" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="task-id" name="editTaskId">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">編集</button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/static/js/taskModal.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <title>Login Form</title>
+</head>
+
+<style>
+      .centered-form {
+        width: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      body{
+      background-color: #d7edf7
+      }
+
+
+</style>
+
+<body>
+
+<nav class="navbar navbar-expand navbar-dark bg-primary fixed-top">
+    <a href="#" class="navbar-brand">My ToDo</a>
+    <ul class="navbar-nav">
+        <li class="nav-item"><a href="/" class="nav-link">Login</a></li>
+        <li class="nav-item"><a href="/signin" class="nav-link">Sign in</a></li>
+    </ul>
+</nav>
+
+<div class="container centered-form">
+    <div class="jumbotron bg-white">
+        <!-- フラッシュメッセージの表示エリア -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert {% if category == 'success' %}alert-success{% else %}alert-danger{% endif %}">
+            <ul class="list-unstyled">
+                <li>{{ message }}</li>
+            </ul>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <form class="col" action="/task" method="POST">
+            <div class="row">
+                <label for="userName" class="visually-hidden">User Name</label>
+                <input type="text" class="form-control" id="userName" name="userName" placeholder="User Name">
+            </div>
+            <div class="row">
+                <label for="inputPassword2" class="visually-hidden">Password</label>
+                <input type="password" class="form-control" id="inputPassword2" name="password" placeholder="Password">
+            </div>
+            <div class="row justify-content-center">
+                <button type="submit" class="btn btn-primary mt-3">Login</button>
+            </div>
+        </form>
+        <div class="row justify-content-center">
+            <a href="/signin" class="mt-2">Sign in</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
