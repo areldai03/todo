@@ -8,8 +8,7 @@ import secrets
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://areldai03:39VCP6xfl5Wfej66qEMDhIXPTEW9C8Sl@dpg' \
-                                        '-ck0sqh1fp0sc73b0vb6g-a/flask_todo_database'
+app.config['SQLALCHEMY_DATABASE_URI'] = postgres://areldai03:39VCP6xfl5Wfej66qEMDhIXPTEW9C8Sl@dpg-ck0sqh1fp0sc73b0vb6g-a/flask_todo_database
 db.init_app(app)
 bootstrap = Bootstrap(app)
 app.secret_key = secrets.token_hex(16)
