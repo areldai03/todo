@@ -5,9 +5,9 @@ from datetime import timedelta
 from datetime import datetime
 import bcrypt
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
+
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
@@ -125,6 +125,5 @@ def editTask():
 
 
 if __name__ == "__main__":
-    #with app.app_context():
-        #db.create_all()
+
     app.run()
