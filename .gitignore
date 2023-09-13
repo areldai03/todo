@@ -4,8 +4,7 @@ __pycache__/
 # 仮想環境ディレクトリ
 venv/
 
-
-app/.env/
+app/.env
 
 # 設定ファイル
 config.json
