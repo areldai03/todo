@@ -1,0 +1,10 @@
+# Python バイトコードファイル
+__pycache__/
+
+# 仮想環境ディレクトリ
+venv/
+
+.env
+
+# 設定ファイル
+config.json
