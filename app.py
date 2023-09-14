@@ -13,8 +13,6 @@ load_dotenv()
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 db.init_app(app)
-with app.app_context():
-    db.create_all()
 bootstrap = Bootstrap(app)
 app.secret_key = secrets.token_hex(16)
 app.permanent_session_lifetime = timedelta(minutes=5)
