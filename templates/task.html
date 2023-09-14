@@ -67,9 +67,9 @@
                     </button>
                 </div>
                 <div class="fw-bold d-flex">
-                    <div class="mr-auto p-2">期限 ： {{ task.limit.strftime('%Y-%m-%d') }}</div>
+                    <div class="mr-auto p-2">期限 ： {{ task.due.strftime('%Y-%m-%d') }}</div>
                     <button class="btn btn-outline-info" data-toggle="modal" data-target="#editTaskModal"
-                            data-whatever={{task.title}},{{task.id}},{{task.limit}}>編集
+                            data-whatever={{task.title}},{{task.id}},{{task.due}}>編集
                     </button>
                 </div>
             </div>

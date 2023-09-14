@@ -12,5 +12,5 @@ class Task(db.Model):
     __tablename__ = "task"
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(60), nullable=False)
-    limit = db.Column(db.DateTime, nullable=True)
+    due = db.Column(db.DateTime, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

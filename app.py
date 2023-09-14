@@ -72,7 +72,7 @@ def showTask():
         return redirect('/')
     user_id = session['user_id']
     user = db.session.get(User, user_id)
-    tasks = Task.query.filter_by(user_id=user_id).order_by(Task.limit.asc()).all()
+    tasks = Task.query.filter_by(user_id=user_id).order_by(Task.due.asc()).all()
     return render_template('task.html', user=user, tasks=tasks)
 
 
@@ -93,7 +93,7 @@ def addTask():
         limit = request.form.get('deadline')
         limit = datetime.strptime(limit, '%Y-%m-%d')
         user_id = session['user_id']
-        new_task = Task(title=title, limit=limit, user_id=user_id)
+        new_task = Task(title=title, due=limit, user_id=user_id)
         db.session.add(new_task)
         db.session.commit()
         return redirect('/home')
@@ -120,7 +120,7 @@ def editTask():
         taskId = request.form.get('editTaskId')
         task = Task.query.get(taskId)
         task.title = request.form.get('editTaskTitle')
-        task.limit = datetime.strptime(request.form.get('editTaskLimit'), '%Y-%m-%d')
+        task.due = datetime.strptime(request.form.get('editTaskLimit'), '%Y-%m-%d')
         db.session.commit()
         return redirect('/home')
 
