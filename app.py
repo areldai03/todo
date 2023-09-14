@@ -34,10 +34,9 @@ def signin():
             flash('パスワードには数字と大文字を少なくとも1つ含めてください。', 'error')
             return redirect('/signin')
 
-        salt = bcrypt.gensalt()
-        hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
-        new_post = User(username=username, password=hashed_password, salt=salt)
+        new_post = User(username=username, password=hashed_password)
 
         db.session.add(new_post)
         db.session.commit()
@@ -128,4 +127,6 @@ def editTask():
 
 
 if __name__ == "__main__":
+    #with app.app_context():
+        #db.create_all()
     app.run()

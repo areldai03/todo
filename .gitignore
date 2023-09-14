@@ -6,5 +6,6 @@ venv/
 
 .env
 
+instance/
 # 設定ファイル
 config.json
