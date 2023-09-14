@@ -58,7 +58,7 @@ def login():
         username = request.form.get("userName")
         password = request.form.get('password')
         user = User.query.filter_by(username=username).first()
-        hashed_password = bcrypt.hashpw(password.encode('utf-8'), user.salt)
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), user.salt.encode('utf-8'))
         if user and user.username == username and hashed_password == user.password:
             session['user_id'] = user.id
             return redirect('/home')
