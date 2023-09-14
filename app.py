@@ -23,7 +23,7 @@ def signin():
     if request.method == 'POST':
         username = request.form.get('userName')
         password = request.form.get('password')
-        existUser = User.query.filter_by(userName=username).first()
+        existUser = User.query.filter_by(username=username).first()
         if existUser:
             flash('そのユーザー名は既に存在しています。別のユーザー名を選択してください。', 'error')
             return redirect('/signin')
@@ -36,7 +36,7 @@ def signin():
 
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
-        new_post = User(userName=username, password=hashed_password)
+        new_post = User(username=username, password=hashed_password)
 
         db.session.add(new_post)
         db.session.commit()
@@ -56,8 +56,8 @@ def login():
     if request.method == "POST":
         username = request.form.get("userName")
         password = request.form.get('password')
-        user = User.query.filter_by(userName=username).first()
-        if user and user.userName == username and bcrypt.checkpw(password.encode('utf-8'), user.password):
+        user = User.query.filter_by(username=username).first()
+        if user and user.username == username and bcrypt.checkpw(password.encode('utf-8'), user.password):
             session['user_id'] = user.id
             return redirect('/home')
         else:
