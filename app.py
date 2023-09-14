@@ -34,9 +34,10 @@ def signin():
             flash('パスワードには数字と大文字を少なくとも1つ含めてください。', 'error')
             return redirect('/signin')
 
-        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        salt = bcrypt.gensalt()
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
 
-        new_post = User(username=username, password=hashed_password)
+        new_post = User(username=username, password=hashed_password, salt=salt)
 
         db.session.add(new_post)
         db.session.commit()
