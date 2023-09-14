@@ -34,9 +34,10 @@ def signin():
             flash('パスワードには数字と大文字を少なくとも1つ含めてください。', 'error')
             return redirect('/signin')
 
-        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        salt = bcrypt.gensalt()
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
 
-        new_post = User(username=username, password=hashed_password)
+        new_post = User(username=username, password=hashed_password, salt=salt)
 
         db.session.add(new_post)
         db.session.commit()
@@ -57,7 +58,7 @@ def login():
         username = request.form.get("userName")
         password = request.form.get('password')
         user = User.query.filter_by(username=username).first()
-        if user and user.username == username and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+        if user and user.username == username and bcrypt.checkpw(password.encode('utf-8'), user.password):
             session['user_id'] = user.id
             return redirect('/home')
         else:
