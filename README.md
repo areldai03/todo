@@ -2,7 +2,7 @@
 
 Web ToDo 管理システムは、タスクの効果的な管理をサポートするためのウェブアプリケーションです。
 今回はじめてwebアプリを作成したのでお手柔らかにお願いします。また、git hubを初めて使っているので至らない点があるかと思いますが、ご容赦ください。
-`git status`
+
 ## 特徴
 - タスクの追加、編集、完了
 - ユーザーアカウントの作成と認証
@@ -11,33 +11,35 @@ Web ToDo 管理システムは、タスクの効果的な管理をサポート�
 ## インストールと実行
 
 ### 1. リポジトリをクローンします:
-ターミナルを開き、git clone https://github.com/areldai03/todo.git を実行します。
+ターミナルを開き、`git clone https://github.com/areldai03/todo.git` を実行します。
 todoというディレクトリが作成されるのでcd todoとして移動します。
 
 ### 2. 仮想環境の作成と起動:
-python -m venv venv を実行して仮想環境を作成します。
-source venv/Scripts/activate で仮想環境を起動します。
+`python -m venv venv` を実行して仮想環境を作成します。
+`source venv/Scripts/activate` で仮想環境を起動します。
 
 ### 3. 依存関係のインストール
 必要な依存関係をインストールします。
-pip install -r requirements.txt を実行します。
+`pip install -r requirements.txt` を実行します。
 
 ### 4. 開発環境のセットアップ
 git checkout development を実行してブランチを開発環境用に切り替えます。
-データベースのurlを環境変数で読み込むため、touch .env で環境変数のファイルを作成し、
-vi .env で中身に DATABASE_URL=sqlite:///flask_todo.db を記述して保存します。
-最後に、vi app.py で中身の一番下に記述しているデータベースのテーブルを作成するコードの
+データベースのurlを環境変数で読み込むため、`touch .env` で環境変数のファイルを作成し、
+`vi .env` で中身に `DATABASE_URL=sqlite:///flask_todo.db` を記述して保存します。
+最後に、`vi app.py` で中身の一番下に記述しているデータベースのテーブルを作成するコードの
 コメントアウトを外して保存します。
+```
 #with app.app_context():
     #db.create_all()
+```
 この部分です。
 
 ### 5. プログラムの実行
-python app.py を実行するとローカルホストのポートが開き、表示されたurl
+`python app.py` を実行するとローカルホストのポートが開き、表示されたurl
 からweb アプリにアクセスすることができます。
 二回目以降の実行時には、ステップ4で外したコメントアウトを再度付け直してください。
 
 ## 貢献
-このプロジェクトへの貢献は歓迎します。バグの報告、新機能の提案、プルリクエストをお待ちしています。
+このプロジェクトへの貢献は歓迎します。バグの報告、新機能の提案、プルリクエストやレビューをお待ちしています。
 
 
