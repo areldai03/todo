@@ -11,7 +11,7 @@ Web ToDo 管理システムは、タスクの効果的な管理をサポート�
 ## インストールと実行
 
 ### 1. リポジトリをクローンします:
-ターミナルを開き、git clone https://github.com/areldai03/todo.git を実行します。
+ターミナルを開き、`git clone https://github.com/areldai03/todo.git` を実行します。
 todoというディレクトリが作成されるのでcd todoとして移動します。
 
 ### 2. 仮想環境の作成と起動:
